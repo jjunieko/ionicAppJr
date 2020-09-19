@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { } from "../../environments/environment";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ApiService {
+  public url: string = environment.baseUrl;
+  constructor(public httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
+  public getPartidos() {
+    return this.httpClient.get(this.url + "partidos");
+  }
 }
