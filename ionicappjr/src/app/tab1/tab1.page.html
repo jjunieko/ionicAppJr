@@ -16,19 +16,9 @@
 
     <ion-list>
         <ion-item *ngFor="let partido of partidos">
-            <ion-img width="40" height="40" src="{{partido.nome.urlFoto}}"></ion-img>
-            <ion-label>{{partido.sigla}} - {{partido.nome}}</ion-label>
-            <ion-button color="secondary">Sobre</ion-button>
+            <ion-img width="40" height="40" src="{{partido.urlLogo}}"></ion-img>
+            <ion-label>{{ partido.sigla | formatarTextoMinusculo }} - {{ partido.nome | formatarTextoMaiusculo}}</ion-label>
+            <app-buttom-go-to-link name="membros" icon="people"></app-buttom-go-to-link>
         </ion-item>
-
-        <ion-button expand="block">Membros
-
-
-        </ion-button>
-
-
-
-
-
     </ion-list>
 </ion-content>
