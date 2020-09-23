@@ -13,4 +13,7 @@ export class ApiService {
   public getPartidos(): Observable<any> {
     return this.httpClient.get(this.url + "partidos");
   }
+  public getMembros(idPartido: number): Observable<any> {
+    return this.httpClient.get(this.url + "partidos/" + idPartido + "/membros");
+  }
 }
