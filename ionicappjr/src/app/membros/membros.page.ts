@@ -17,8 +17,8 @@ export class MembrosPage implements OnInit {
     this.idPartido = this.router.snapshot.params.id;
     this.buscarMembrosDoPartido(this.idPartido);
   }
-  public buscarMembrosDoPartido(idPartido: number) {
-    this.apiService.getMembros(idPartido).subscribe((response) => {
+  public buscarMembrosDoPartido(idPart: number) {
+    this.apiService.getMembros(idPart).subscribe((response) => {
       console.log(response);
     });
   }
