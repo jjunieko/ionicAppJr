@@ -1,0 +1,40 @@
+ion-card-subtitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: blue;
+}
+
+img {
+    height: 130px;
+    width: 130px;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    border-top: 5px;
+    padding: 10px 5px 5px;
+    margin-left: 10px;
+    box-shadow: 2px 2px 2px grey;
+}
+
+.list-card {
+    text-align: center;
+}
+
+span {
+    color: green;
+}
+
+p {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+a p {
+    font-size: 10px;
+    color: cornflowerblue;
+}
+
+ion-icon {
+    width: 35px;
+    height: 35px;
+    color: darkblue;
+}

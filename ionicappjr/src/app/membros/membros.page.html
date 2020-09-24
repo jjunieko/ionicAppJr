@@ -10,12 +10,35 @@
 
 <ion-content>
 
-    <ion-list>
-        <ion-item>
-            <ion-label>Pkemon</ion-label>
-        </ion-item>
-    </ion-list>
+    <ion-row class="ion-align-items-center">
+        <ion-col>
 
+            <ion-text color="danger" *ngIf="membros.length == 0">
+                <p>Não existem membros no partido</p>
+            </ion-text>
 
+            <ion-card *ngFor="let membro of membros" class="list-card">
+                <img [src]="membro.urlFoto" />
+                <ion-card-header>
+
+                    <ion-card-subtitle>{{membro.siglaPartido}}</ion-card-subtitle>
+                    <ion-card-title>{{membro.nome}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <p><span>UF: </span>{{membro.siglaUf}}</p>
+                    <p><span>Email: </span>{{membro.email}}</p>
+                    <p><span>Legislatura: </span>{{membro.idLegislatura}}</p>
+                    <a href="/">
+                        <p>uri: {{membro.uriPartido}} </p>
+                    </a>
+                    <ion-icon name="logo-facebook">
+                        {{membro.urlFacebook}}
+                    </ion-icon>
+
+                </ion-card-content>
+            </ion-card>
+
+        </ion-col>
+    </ion-row>
 
 </ion-content>
