@@ -39,7 +39,7 @@ export class ModalDeputadoPage implements OnInit {
   }
 
   async fecharCarregando() {
-    await this.carregando.dismiss;
+    await this.carregando.dismiss();
   }
 
   getDeputado(idDeputado: number) {
