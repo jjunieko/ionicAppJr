@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { Deputado } from "../models/deputado";
+import { ApiService } from "../services/api.service";
+import { LoadingController } from "@ionic/angular";
 
 @Component({
   selector: "app-modal-deputado",
@@ -9,15 +12,44 @@ import { ModalController } from "@ionic/angular";
 export class ModalDeputadoPage implements OnInit {
   @Input() idDeputado: number;
 
-  constructor(public modal: ModalController) {}
+  public deputado: Deputado;
+
+  public carregando: any;
+
+  constructor(
+    public modal: ModalController,
+    public apiService: ApiService,
+    public loading: LoadingController
+  ) {}
 
   ngOnInit() {
-    console.log(this.idDeputado);
-
+    //console.log(this.idDeputado);
     /* setTimeout(() => {
       this.modal.dismiss();
     }, 3000); */
+
+    this.getDeputado(this.idDeputado);
   }
+
+  async showCarregando() {
+    this.carregando = await this.loading.create({
+      message: "Aguarde...",
+    });
+    await this.carregando.present();
+  }
+
+  async fecharCarregando() {
+    await this.carregando.dismiss;
+  }
+
+  getDeputado(idDeputado: number) {
+    this.showCarregando();
+    this.apiService.getDeputadoId(idDeputado).subscribe((res) => {
+      this.deputado = res.dados;
+      this.fecharCarregando();
+    });
+  }
+
   fecharModal(): void {
     this.modal.dismiss();
   }
