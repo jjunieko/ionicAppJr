@@ -13,8 +13,8 @@ export class ModalDeputadoPage implements OnInit {
   @Input() idDeputado: number;
 
   public deputado: Deputado;
-
   public carregando: any;
+  public carregamentoFinalizado: boolean = false;
 
   constructor(
     public modal: ModalController,
@@ -47,6 +47,7 @@ export class ModalDeputadoPage implements OnInit {
     this.apiService.getDeputadoId(idDeputado).subscribe((res) => {
       this.deputado = res.dados;
       this.fecharCarregando();
+      this.carregamentoFinalizado = true;
     });
   }
 
