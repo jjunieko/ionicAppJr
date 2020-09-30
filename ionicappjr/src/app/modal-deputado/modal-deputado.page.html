@@ -12,7 +12,7 @@
 
 <ion-content>
 
-    <ion-card>
+    <ion-card *ngIf="carregamentoFinalizado">
         <ion-avatar>
             <img src="{{deputado.ultimoStatus.urlFoto}}">
         </ion-avatar>
