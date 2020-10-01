@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title size="small">Cadastro de Comidas</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="fecharModal()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <ion-row>
+            <ion-col>
+                <ion-item color="#f0f0f9">
+                    <ion-label>Nome</ion-label>
+                    <ion-input type="text" formControlName="nome" required></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item color="secondary">
+                    <ion-label>Tipo</ion-label>
+                    <ion-select value="peperoni" placeholder="Selecione o Tipo">
+                        <ion-select-option value="Arabe">Árabe</ion-select-option>
+                        <ion-select-option value="Mexicana">Mexicana</ion-select-option>
+                        <ion-select-option value="Brasileira">Brasileira</ion-select-option>
+                        <ion-select-option value="Chinesa">Chinesa(COVID-19)</ion-select-option>
+                        <ion-select-option value="Indiana">Indiana</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label>DD MM YY</ion-label>
+                    <ion-datetime displayFormat="DD MM YY" placeholder="Selecione a Datade Entrega"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label>HH mm</ion-label>
+                    <ion-datetime displayFormat="HH mm" placeholder="Selecione a Hora de Entrega"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-range min="20" max="80" step="2">
+                <ion-icon size="small" slot="start" name="happy"></ion-icon>
+                <ion-icon slot="end" name="sad"></ion-icon>
+            </ion-range>
+        </ion-item>
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" color="danger" expand="block">
+                    Excluir
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" color="success" expand="block">
+                    Salvar
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>
