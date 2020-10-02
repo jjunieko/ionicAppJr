@@ -6,6 +6,7 @@ import { Storage } from "@ionic/storage";
 })
 export class ComidaService {
   constructor(public storage: Storage) {
+    //storage.set("comidas", JSON.stringify([{ nome: "comida" }]));
     /* storage.set("comidas", [{ nome: "Pizza" }]);
 
     // Or to get a key/value pair
@@ -16,21 +17,15 @@ export class ComidaService {
 
   public getAll() {
     return this.storage.get("comidas").then((comidas) => {
-      return !comidas.isArray ? [] : comidas;
+      return Promise.resolve(comidas);
     });
-
-    /*    return this.storage.get("comidas").then((comidas) => {
-      if (!comidas) {
-        return [];
-      }
-      return !comidas.isArray ? [] : comidas;
-    }); */
   }
+
   public salvarComida(comida) {
-    //console.log(">>>>", comida);
     this.getAll().then((comidas) => {
-      this.storage.set("comidas", comidas.push(comida));
-      console.log(comidas, "comidas");
+      console.log(comidas);
+      comidas.push(comida);
+      this.storage.set("comidas", comidas);
     });
   }
 }
