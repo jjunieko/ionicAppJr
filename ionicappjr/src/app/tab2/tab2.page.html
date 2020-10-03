@@ -15,4 +15,27 @@
     </ion-header>
 
 
+    <ion-list>
+        <ion-item *ngFor="let comida of comidas; let id = index">
+            <ion-avatar slot="start">
+                <img src="http://lorempixel.com/140/90/food/" />
+            </ion-avatar>
+            <ion-label>
+                <h2>{{comida.nome}}</h2>
+                <ion-text color="medium">
+                    <h3>{{comida.tipo}}</h3>
+                </ion-text>
+                <p>{{comida.descricao}}</p>
+            </ion-label>
+            <ion-button slot="end" color="secondary">
+                <ion-icon name="pencil-outline"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" color="danger" (click)="remover(id)">
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
+
+
+
 </ion-content>
