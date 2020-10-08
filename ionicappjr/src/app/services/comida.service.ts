@@ -25,7 +25,7 @@ export class ComidaService {
   public async salvarComida(comida, id: number) {
     console.log(comida, id);
     if (id || id === 0) {
-      await this.update(id, comida);
+      await this.update(comida, id);
       return;
     }
     await this.save(comida);

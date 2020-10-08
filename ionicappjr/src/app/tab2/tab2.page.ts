@@ -24,7 +24,7 @@ export class Tab2Page implements OnInit {
 
   async showCarregar() {
     this.carregar = await this.laoding.create({
-      message: "Agurde, estamos processando a página",
+      message: "Aguarde, processando",
     });
     await this.carregar.present();
   }

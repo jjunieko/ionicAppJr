@@ -62,9 +62,9 @@ export class ModalComidaPage implements OnInit {
   public async submitForm() {
     await this.showCarregar();
     //console.log(this.form.value);
-    await this.comida.salvarComida(this.form.value, this.id);
+    this.comida.salvarComida(this.form.value, this.id);
     await this.fecharCarregando();
-    await this.fecharModal();
+    this.fecharModal();
     this.showMensagem();
   }
 
