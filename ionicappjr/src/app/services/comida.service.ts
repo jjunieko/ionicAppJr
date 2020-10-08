@@ -17,27 +17,41 @@ export class ComidaService {
   }
 
   public async getAll() {
-    //return this.storage.get("comidas").then((comidas) => {
-    //return Promise.resolve(comidas);
-    // });
-
     let comidas = await this.storage.get("comidas");
     comidas = JSON.parse(comidas);
     return comidas;
   }
 
-  public async salvarComida(comida) {
-    /*    this.getAll().then((comidas) => {
-      console.log(comidas);
-      comidas.push(comida);
-      this.storage.set("comidas", comidas);
-    }); */
+  public async salvarComida(comida, id: number) {
+    console.log(comida, id);
+    if (id || id === 0) {
+      await this.update(id, comida);
+      return;
+    }
+    await this.save(comida);
+  }
+
+  public async save(comida) {
     let comidas = await this.getAll();
     if (!comidas) {
       comidas = [];
     }
     comidas.push(comida);
-    this.storage.set("comidas", JSON.stringify(comidas));
+    await this.storage.set("comidas", JSON.stringify(comidas));
+  }
+
+  public async update(comidaForm, id: number) {
+    //comidaForm={Ovos} | id={2}
+    let comidas = await this.getAll();
+    comidas = await comidas.map((comidalocalStorage, key) => {
+      if (id == key) {
+        return comidaForm;
+      }
+      return comidalocalStorage;
+    });
+
+    // ComidasAtualizadas = [1 - pizza, 2 - ovos, 3 - batata]
+    await this.storage.set("comidas", JSON.stringify(comidas));
   }
 
   public async removeAll() {
@@ -50,5 +64,15 @@ export class ComidaService {
     comidas.splice(index, 1);
     await this.storage.set("comidas", JSON.stringify(comidas));
     console.log(comidas);
+  }
+
+  public async getComida(key: number) {
+    let comidas = await this.getAll();
+    const comidasProcurada = comidas.find((comida, idC) => {
+      if (idC === key) {
+        return comida;
+      }
+    });
+    return comidasProcurada;
   }
 }
