@@ -17,7 +17,7 @@
   <ion-list>
     <ion-item *ngFor="let comida of comidas; let id = index">
       <ion-avatar slot="start">
-        <img src="http://lorempixel.com/140/90/food/" />
+        <img src="http://lorempixel.com/150/100/food/" />
       </ion-avatar>
       <ion-label>
         <h2>{{comida.nome}}</h2>
@@ -29,7 +29,7 @@
       <ion-button slot="end" color="secondary" (click)="editarComida(id)">
         <ion-icon name="pencil-outline"></ion-icon>
       </ion-button>
-      <ion-button slot="end" color="danger" (click)="remover(id)">
+      <ion-button slot="end" color="danger" (click)="actionSheetDelete(id)">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>

@@ -1,7 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { LoadingController, ModalController } from "@ionic/angular";
+import {
+  ActionSheetController,
+  LoadingController,
+  ModalController,
+} from "@ionic/angular";
 import { ModalComidaPage } from "../modal-comida/modal-comida.page";
 import { ComidaService } from "../services/comida.service";
+import { Comida } from "../models/comida";
 
 @Component({
   selector: "app-tab2",
@@ -9,31 +14,28 @@ import { ComidaService } from "../services/comida.service";
   styleUrls: ["tab2.page.scss"],
 })
 export class Tab2Page implements OnInit {
-  public comidas = [];
+  public comidas: Array<Comida> = [];
   public carregar: any;
 
   constructor(
     public modal: ModalController,
     public comida: ComidaService,
-    public laoding: LoadingController
+    public laoding: LoadingController,
+    public actionSheetController: ActionSheetController
   ) {}
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     await this.getComidas();
   }
 
-  async showCarregar() {
+  async showCarregar(): Promise<void> {
     this.carregar = await this.laoding.create({
       message: "Aguarde, processando",
     });
     await this.carregar.present();
   }
 
-  async fecharCarregando() {
-    await this.carregar.dismiss();
-  }
-
-  async abrirModalComida() {
+  async abrirModalComida(): Promise<void> {
     const modal = await this.modal.create({
       component: ModalComidaPage,
     });
@@ -61,17 +63,46 @@ export class Tab2Page implements OnInit {
 
   public async getComidas() {
     await this.showCarregar();
-    this.comidas = await this.comida.getAll();
-    console.log(this.comidas);
-    this.fecharCarregando();
+    setTimeout(async () => {
+      this.comidas = await this.comida.getAll();
+      //console.log(this.comidas);
+      await this.fecharCarregando();
+    }, 2000);
   }
 
-  public async remover(id: number) {
+  public async remover(id: number): Promise<void> {
     await this.comida.remover(id);
     this.getComidas();
   }
 
-  /*  modal.onDidDismiss().then(async () =>{
-    await this.getComidas()
-   }) */
+  async fecharCarregando(): Promise<void> {
+    await this.carregar.dismiss();
+  }
+
+  async actionSheetDelete(id: number) {
+    const actionSheet = await this.actionSheetController.create({
+      header: "tem certeza que deseja deletar ?",
+      cssClass: "my-custom-class",
+      buttons: [
+        {
+          text: "sim",
+          role: "destructive",
+          icon: "trash",
+          handler: async (): Promise<void> => {
+            await this.remover(id);
+          },
+          //console.log("delete clicked");
+        },
+        {
+          text: "cancelar",
+          icon: "close",
+          role: "cancel",
+          handler: () => {
+            console.log("cancel cliked");
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
 }

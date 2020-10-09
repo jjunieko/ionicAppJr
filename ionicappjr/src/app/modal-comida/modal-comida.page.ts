@@ -3,6 +3,7 @@ import { LoadingController, ModalController } from "@ionic/angular";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { ComidaService } from "../services/comida.service";
 import { ToastController } from "@ionic/angular";
+import { Comida } from "../models/comida";
 
 @Component({
   selector: "app-modal-comida",
@@ -33,7 +34,7 @@ export class ModalComidaPage implements OnInit {
     });
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     if (this.id || this.id === 0) {
       await this.editarComida();
       this.isEdit = true;
@@ -41,7 +42,7 @@ export class ModalComidaPage implements OnInit {
     //console.log(this.id);
   }
 
-  async showMensagem() {
+  async showMensagem(): Promise<void> {
     let message: string = "Comida Cadastrada com Sucesso";
     if (this.isEdit) {
       message = "Comida Atualizada com Sucesso";
@@ -59,7 +60,7 @@ export class ModalComidaPage implements OnInit {
     this.modal.dismiss();
   }
 
-  public async submitForm() {
+  public async submitForm(): Promise<void> {
     await this.showCarregar();
     //console.log(this.form.value);
     this.comida.salvarComida(this.form.value, this.id);
@@ -68,7 +69,7 @@ export class ModalComidaPage implements OnInit {
     this.showMensagem();
   }
 
-  public async editarComida() {
+  public async editarComida(): Promise<void> {
     await this.showCarregar();
     const edComida = await this.comida.getComida(this.id);
     console.log(edComida);
@@ -76,13 +77,13 @@ export class ModalComidaPage implements OnInit {
     await this.fecharCarregando();
   }
 
-  async showCarregar() {
+  async showCarregar(): Promise<void> {
     this.carregar = await this.loading.create({
       message: "Aguarde...",
     });
     await this.carregar.present();
   }
-  async fecharCarregando() {
+  async fecharCarregando(): Promise<void> {
     await this.carregar.dismiss();
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
+import { Comida } from "../models/comida";
 
 @Injectable({
   providedIn: "root",
@@ -16,13 +17,13 @@ export class ComidaService {
     }); */
   }
 
-  public async getAll() {
+  public async getAll(): Promise<Comida[]> {
     let comidas = await this.storage.get("comidas");
     comidas = JSON.parse(comidas);
     return comidas;
   }
 
-  public async salvarComida(comida, id: number) {
+  public async salvarComida(comida: Comida, id: number): Promise<void> {
     console.log(comida, id);
     if (id || id === 0) {
       await this.update(comida, id);
@@ -31,7 +32,7 @@ export class ComidaService {
     await this.save(comida);
   }
 
-  public async save(comida) {
+  public async save(comida): Promise<void> {
     let comidas = await this.getAll();
     if (!comidas) {
       comidas = [];
@@ -40,7 +41,7 @@ export class ComidaService {
     await this.storage.set("comidas", JSON.stringify(comidas));
   }
 
-  public async update(comidaForm, id: number) {
+  public async update(comidaForm: Comida, id: number): Promise<void> {
     //comidaForm={Ovos} | id={2}
     let comidas = await this.getAll();
     comidas = await comidas.map((comidalocalStorage, key) => {
@@ -54,11 +55,11 @@ export class ComidaService {
     await this.storage.set("comidas", JSON.stringify(comidas));
   }
 
-  public async removeAll() {
+  public async removeAll(): Promise<void> {
     await this.storage.remove("comidas");
   }
 
-  public async remover(index: number) {
+  public async remover(index: number): Promise<void> {
     let comidas = await this.getAll();
     console.log(comidas);
     comidas.splice(index, 1);
@@ -66,7 +67,7 @@ export class ComidaService {
     console.log(comidas);
   }
 
-  public async getComida(key: number) {
+  public async getComida(key: number): Promise<Comida> {
     let comidas = await this.getAll();
     const comidasProcurada = comidas.find((comida, idC) => {
       if (idC === key) {
